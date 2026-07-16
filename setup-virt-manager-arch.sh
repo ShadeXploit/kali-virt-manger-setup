@@ -29,11 +29,19 @@ if [[ $# -gt 0 ]]; then
         shift
         ;;
       --kali-url)
-        KALI_URL="${2:-}"
+        if [[ -z "${2:-}" ]]; then
+          echo "--kali-url requires a value." >&2
+          exit 1
+        fi
+        KALI_URL="$2"
         shift 2
         ;;
       --images-dir)
-        IMAGES_DIR_OVERRIDE="${2:-}"
+        if [[ -z "${2:-}" ]]; then
+          echo "--images-dir requires a value." >&2
+          exit 1
+        fi
+        IMAGES_DIR_OVERRIDE="$2"
         shift 2
         ;;
       --dry-run)
@@ -60,6 +68,9 @@ fi
 
 TARGET_USER="${SUDO_USER:-$USER}"
 TARGET_HOME="$(getent passwd "$TARGET_USER" | cut -d: -f6)"
+if [[ -z "$TARGET_HOME" ]]; then
+  TARGET_HOME="$HOME"
+fi
 IMAGES_DIR="${IMAGES_DIR_OVERRIDE:-$TARGET_HOME/VMImages/kali}"
 
 run_cmd() {
@@ -83,7 +94,7 @@ run_root() {
 discover_kali_url() {
   local listing kali_file
   listing="$(curl -fsSL https://cdimage.kali.org/current/)"
-  kali_file="$(printf '%s' "$listing" | grep -Eo 'kali-linux-[0-9.]+-qemu-amd64\.7z' | head -n1 || true)"
+  kali_file="$(printf '%s' "$listing" | grep -Eo 'kali-linux-[^"]+-qemu-amd64\.7z' | head -n1 || true)"
 
   if [[ -z "$kali_file" ]]; then
     echo "Could not auto-discover Kali QEMU image URL. Use --kali-url." >&2
