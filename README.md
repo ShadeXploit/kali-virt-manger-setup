@@ -1,38 +1,21 @@
 # kali-virt-manager-setup
 
-A simple script to automate virt-manager + libvirt setup on Arch Linux and optionally download/extract a Kali QEMU image.
+Sets up virt-manager with everything needed to run Kali on Arch Linux.
 
-## Usage
+## Run it
 
-```bash
-chmod +x ./setup-virt-manager-arch.sh
-./setup-virt-manager-arch.sh
-```
-
-This runs the requested base setup:
+Copy this into your terminal:
 
 ```bash
-sudo pacman -S qemu-full virt-manager libvirt edk2-ovmf dnsmasq swtpm bridge-utils iptables-nft
-sudo systemctl enable --now libvirtd
-sudo usermod -aG libvirt "$USER"
+bash <(curl -fsSL https://raw.githubusercontent.com/ShadeXploit/kali-virt-manger-setup/main/setup-virt-manager-arch.sh)
 ```
 
-## Optional: pull Kali QEMU image and extract
+Or clone and run it manually:
 
 ```bash
-./setup-virt-manager-arch.sh --download-kali-image
+git clone https://github.com/ShadeXploit/kali-virt-manger-setup.git
+cd kali-virt-manger-setup
+bash setup-virt-manager-arch.sh
 ```
 
-By default, it auto-detects the latest QEMU image from `https://cdimage.kali.org/current/`, downloads it, and extracts it into `~/VMImages/kali`.
-
-You can override the URL/path:
-
-```bash
-./setup-virt-manager-arch.sh --download-kali-image --kali-url "https://cdimage.kali.org/current/kali-linux-2026.2-qemu-amd64.7z" --images-dir "$HOME/VMImages/kali"
-```
-
-## Small additions that can help
-
-- `--needed` is used with `pacman -S` to avoid reinstalling already-installed packages.
-- `curl` and `7zip` are installed automatically only when Kali image download is requested.
-- The script safely adds the correct login user to the `libvirt` group, including when run with `sudo`.
+Log out and back in after it finishes so the libvirt group takes effect.
