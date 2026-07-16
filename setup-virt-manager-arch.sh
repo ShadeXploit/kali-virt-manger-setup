@@ -5,4 +5,4 @@ sudo pacman -S --needed qemu-full virt-manager libvirt edk2-ovmf dnsmasq swtpm b
 sudo systemctl enable --now libvirtd
 sudo usermod -aG libvirt "$USER"
 
-echo "Done. Log out and back in for the group change to take effect."
+echo "Done. Log out and back in or just reboot for the group change to take effect."
