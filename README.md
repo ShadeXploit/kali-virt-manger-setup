@@ -2,6 +2,8 @@
 
 Sets up virt-manager with everything needed to run Kali on Arch Linux.
 
+I made this becuase I am sick of asking what I need to run kali linux smoothly LOL. 
+
 ## Run it
 
 Copy this into your terminal:
