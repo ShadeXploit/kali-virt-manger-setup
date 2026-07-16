@@ -22,4 +22,4 @@ cd kali-virt-manger-setup
 bash setup-virt-manager-arch.sh
 ```
 
-Log out and back in after it finishes so the libvirt group takes effect.
+Log out and back in after it finishes so the libvirt group takes effect (or just reboot).
