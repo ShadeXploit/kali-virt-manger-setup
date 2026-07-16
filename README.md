@@ -1,4 +1,4 @@
-# kali-virt-manger-setup
+# kali-virt-manager-setup
 
 A simple script to automate virt-manager + libvirt setup on Arch Linux and optionally download/extract a Kali QEMU image.
 

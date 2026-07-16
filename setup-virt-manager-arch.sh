@@ -93,7 +93,10 @@ run_root() {
 
 discover_kali_url() {
   local listing kali_file
-  listing="$(curl -fsSL https://cdimage.kali.org/current/)"
+  if ! listing="$(curl -fsSL https://cdimage.kali.org/current/)"; then
+    echo "Failed to fetch Kali image listing from https://cdimage.kali.org/current/. Check your network or pass --kali-url." >&2
+    exit 1
+  fi
   kali_file="$(printf '%s' "$listing" | grep -Eo 'kali-linux-[^"]+-qemu-amd64\.7z' | head -n1 || true)"
 
   if [[ -z "$kali_file" ]]; then
