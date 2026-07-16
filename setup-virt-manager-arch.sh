@@ -125,7 +125,7 @@ if [[ "$DOWNLOAD_KALI_IMAGE" == true ]]; then
     fi
   fi
 
-  mkdir -p "$IMAGES_DIR"
+  run_cmd mkdir -p "$IMAGES_DIR"
   ARCHIVE_PATH="$IMAGES_DIR/$(basename "$KALI_URL")"
 
   echo "Downloading Kali QEMU image: $KALI_URL"
